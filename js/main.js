@@ -12,12 +12,27 @@
 	}
 
 
-	for (i = 0; i <= 8; i++) {
-   		ctx.beginPath();
-		ctx.fillStyle = "rgba(0, 255, 0, 1)";
-		ctx.arc(getRandomIntInclusive(5, 495),getRandomIntInclusive(5, 495),5,0,2*Math.PI);
-		ctx.fill();
-   		i++
+	var portals = [], delta = 50, nbPortails = 8;
+	for (i = 0; i <= nbPortails; i++) {
+	
+	   var flagOK = false;
+	   while(!flagOK){
+	   		var randomX     = getRandomIntInclusive(5, 495), randomY = getRandomIntInclusive(5, 495);
+	       	flagOK = true;
+	  	
+	       	for(var j=0,len = portals.length;j<len;j++){
+	           	if((randomX >= portals[j][0] - delta &&  randomX <= portals[j][0] + delta) && (randomY >= portals[j][1] - delta &&  randomY <= portals[j][1] + delta)){
+	            	flagOK = false;
+	           	}
+	       	}
+	   }
+	   
+	   portals[i]     = [randomX, randomY];
+
+	   ctx.beginPath();
+	   ctx.fillStyle = "rgba(0, 255, 0, 1)";
+	   ctx.arc(portals[i][0],portals[i][1],5,0,2*Math.PI);
+	   ctx.fill();
 	}
 	
 
